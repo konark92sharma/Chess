@@ -3,60 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Chess Game</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .chessboard{
+        .chessboard {
             display: grid;
-            grid-template-columns:repeat(8,minmax(0,1fr));
-            grid-template-rows: repeat(8,minmax(0,1fr));
-            width: 400px;
-            height: 400px;
-            transform: rotate(0deg);
+            grid-template-columns: repeat(8, minmax(0, 1fr));
+            grid-template-rows: repeat(8, minmax(0, 1fr));
+            width: 600px;
+            height: 600px;
+            border: 10px solid #8B4513;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
-        .piece.white{
-            color: white;
-            filter: drop-shadow(0 0 2px rgba(0,0,0,1));
+        .piece {
+            font-size: 48px;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.2s;
         }
-        .piece.black{
-            color: black;
+        .piece:hover {
+            transform: scale(1.1);
         }
-        .flipped{
-            transform:rotate(180deg);
+        .piece.white {
+            color: #FFF;
+            text-shadow: 0 0 3px #000;
         }
-        .square{
+        .piece.black {
+            color: #000;
+            text-shadow: 0 0 3px #FFF;
+        }
+        .square {
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background-color 0.3s;
         }
-        .square.light{
-            background-color: #f0d9b5;
+        .square.light {
+            background-color: #F0D9B5;
         }
-        .square.dark{
-            background-color: #b58863;
+        .square.dark {
+            background-color: #B58863;
         }
-        .piece{
-            font-size: 36px;
-            cursor: pointer;
+        .square.highlight {
+            background-color: rgba(255, 255, 0, 0.5);
         }
-        .piece.draggable{
-            cursor: grab;
-        }
-        .dragging{
-            opacity: 0.5;
-        }
-        .flipped .piece{
+        .flipped {
             transform: rotate(180deg);
+        }
+        .flipped .piece {
+            transform: rotate(180deg);
+        }
+        #moveHistory {
+            height: 600px;
+            overflow-y: auto;
+            background-color: #F0D9B5;
+            border: 5px solid #8B4513;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+        }
+        #moveHistory div {
+            padding: 5px 0;
+            border-bottom: 1px solid #B58863;
         }
     </style>
 </head>
-<body>
-    <div class="w-full h-screen flex items-center justify-center bg-zinc-900">
-        <div class="chessboard w-96 h-96 bg-red-800"></div>
+<body class="bg-gray-900">
+    <div class="w-full min-h-screen flex items-center justify-center p-4">
+        <div class="flex flex-col md:flex-row gap-8">
+            <div class="chessboard rounded-lg overflow-hidden"></div>
+            <div id="moveHistory" class="w-64 rounded-lg"></div>
+        </div>
     </div>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js" integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/js/chessgame.js"></script>
-
 </body>
 </html>
